@@ -18,16 +18,25 @@ use App\Http\Controllers\SectionController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-// course routes
+
+
 Route::Get('/course',[CourseController::class,'getAllCourses']);
 Route::Post('/course',[CourseController::class,'addCourse']);
 Route::Get('/course/{id}',[CourseController::class,'getCourse']);
 Route::Put('/course/{id}',[CourseController::class,'editCourse']);
 Route::Delete('/course/{id}',[CourseController::class,'deleteCourse']);
 
-// section routes
+
 Route::Post('/section',[SectionController::class,'addSection']);
 Route::Get('/section',[SectionController::class,'getAllSection']);
 Route::Get('/section/{id}',[SectionController::class,'getSection']);
 Route::Put('/section/{id}',[SectionController::class,'editSection']);                 
 Route::Delete('/section/{id}',[SectionController::class,'deleteSection']);   
+
+
+Route::Post('/admins',[AdminController::class,'addAdmin']);
+Route::Get('/admins',[AdminController::class,'getAllAdmin']);
+Route::Get('/admins/{id}',[AdminController::class,'getAdmin']);
+Route::Patch('/admins/{id}',[AdminController::class,'editAdmin']);
+Route::delete('/admins/{id}',[AdminController::class,'deleteAdmin']);
+
