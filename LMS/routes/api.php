@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::Post('/admins',[AdminController::class,'addAdmin']);
+Route::Get('/admins',[AdminController::class,'getAllAdmin']);
+Route::Get('/admins/{id}',[AdminController::class,'getAdmin']);
+Route::Patch('/admins/{id}',[AdminController::class,'editAdmin']);
+Route::delete('/admins/{id}',[AdminController::class,'deleteAdmin']);
