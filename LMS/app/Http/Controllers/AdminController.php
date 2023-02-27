@@ -11,13 +11,13 @@ use Illuminate\Http\Response;
 
 class AdminController extends Controller
 {
-   public function getAll(Request $req){
+   public function getAllAdmin(Request $req){
       $admin = Admin::get();
       return response()->json([
          "message" => $admin
       ]);
    }
-   public function getById(Request $req, $id){
+   public function getAdmin(Request $req, $id){
       $admin = Admin::where("id", $id)->get();
       return response()->json([
          "message" => $admin
