@@ -46,7 +46,7 @@ class AdminController extends Controller
      }
      public function editAdmin(Request $req, $id){
       $admin =  Admin::find($id);
-      $inputs= $req->all();
+      $inputs= $req->except("_method","password");
       $admin->update($inputs);
       return response()->json([
           'message' => 'Admin edited successfully!',
