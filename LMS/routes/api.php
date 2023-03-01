@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\AttendanceController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,6 +28,11 @@ Route::Get('/course/{id}',[CourseController::class,'getCourse']);
 Route::Put('/course/{id}',[CourseController::class,'editCourse']);
 Route::Delete('/course/{id}',[CourseController::class,'deleteCourse']);
 
+Route::Post('/student',[StudentController::class,'addStudent']);
+Route::Get('/student',[StudentController::class,'getAllStudent']);
+Route::Get('/student/{id}',[StudentController::class,'getStudent']);
+Route::Patch('/student/{id}',[StudentController::class,'updateStudent']);
+Route::Delete('/student/{id}',[StudentController::class,'deleteStudent']);
 
 Route::Post('/section',[SectionController::class,'addSection']);
 Route::Get('/section',[SectionController::class,'getAllSection']);
@@ -40,3 +47,8 @@ Route::Get('/admins/{id}',[AdminController::class,'getAdmin']);
 Route::Patch('/admins/{id}',[AdminController::class,'editAdmin']);
 Route::delete('/admins/{id}',[AdminController::class,'deleteAdmin']);
 
+Route::Post('/attendance',[AttendanceController::class,'addAttendance']);
+Route::Get('/attendance',[AttendanceController::class,'getAllAttendance']);
+Route::Get('/attendance/{id}',[AttendanceController::class,'getAttendance']);
+Route::Patch('/attendance/{id}',[AttendanceController::class,'updateAttendance']);
+Route::Delete('/attendance/{id}',[AttendanceController::class,'deleteAttendance']);

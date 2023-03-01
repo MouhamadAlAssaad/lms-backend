@@ -62,6 +62,7 @@ public function getSection(Request $request, $id)
   // edit section
 public function editSection(Request $request, $id)
 {
+    try{
     $section = Section::find($id);
     if (!$section) {
         return response()->json([
@@ -76,11 +77,16 @@ public function editSection(Request $request, $id)
         'message' => 'section edited successfully!',
         'section' => $section,
     ]);
+} catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
 }
 // delete section
 
 public function deleteSection(Request $request,$id){
-
+try{
     $section = Section::find($id);
     if (!$section) {
         return response()->json([
@@ -91,6 +97,11 @@ public function deleteSection(Request $request,$id){
  return response()->json([
     'message' => 'section deleted successfully!',
 ]);
+} catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
 
 }
 }
