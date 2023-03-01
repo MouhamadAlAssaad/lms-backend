@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Course;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
@@ -15,7 +16,7 @@ class StudentController extends Controller
             $Student        = new Student;
             $name           = $request->input('name');
             $email          = $request->input('email');
-            $password       = $request->input('password');
+            $password       = Hash::make($request->input('password'));
             $phone          = $request->input('phone');
             $picture_path   = $request->file('picture')->store('images','public');
             $course_id      = $request->input('course_id');
