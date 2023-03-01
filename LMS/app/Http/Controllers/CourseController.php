@@ -13,12 +13,18 @@ class CourseController extends Controller
 
     public function getAllCourses()
     {
+        try{
         $courses = Course::all();
     
         return response()->json([
             'message' => 'All courses retrieved successfully!',
             'courses' => $courses,
         ]);
+    } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
     
 
@@ -26,6 +32,7 @@ class CourseController extends Controller
     
     public function addCourse(Request $request)
     {
+        try{
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'description' => 'required',
@@ -43,6 +50,11 @@ class CourseController extends Controller
         return response()->json([
             'message' => 'course created successfully!',
         ]);
+    } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
 
@@ -51,6 +63,7 @@ class CourseController extends Controller
     public function getCourse(Request $request, $id)
     {
         // Validate the ID parameter
+        try{
         $validator = Validator::make(['id' => $id], [
             'id' => 'required',
         ]);
@@ -69,11 +82,17 @@ class CourseController extends Controller
         return response()->json([
             'message' => $course,
         ]);
+    } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     // editCourse
 
 public function editCourse(Request $request, $id){
+    try{
     $course = Course::find($id);
     if (!$course) {
         return response()->json(['message' => 'Course not found'], 404);
@@ -101,12 +120,18 @@ public function editCourse(Request $request, $id){
         'message' => 'Course updated successfully!',
         'course' => $course,
     ]);
+} catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
 }
 
 // deleteCourse
 
 public function deleteCourse(Request $request, $id)
 {
+    try{
     $validator = Validator::make(['id' => $id], [
         'id' => 'required',
     ]);
@@ -125,6 +150,11 @@ public function deleteCourse(Request $request, $id)
     return response()->json([
         'message' => 'Course deleted successfully!',
     ]);
+} catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
 }
 
 

@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,22 +24,52 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::Get('/course',[CourseController::class,'getAllCourses']);
-Route::Post('/course',[CourseController::class,'addCourse']);
 Route::Get('/course/{id}',[CourseController::class,'getCourse']);
-Route::Put('/course/{id}',[CourseController::class,'editCourse']);
-Route::Delete('/course/{id}',[CourseController::class,'deleteCourse']);
 
 
-Route::Post('/section',[SectionController::class,'addSection']);
+Route::Post('/student',[StudentController::class,'addStudent']);
+Route::Patch('/student/{id}',[StudentController::class,'updateStudent']);
+Route::Delete('/student/{id}',[StudentController::class,'deleteStudent']);
+
+
 Route::Get('/section',[SectionController::class,'getAllSection']);
 Route::Get('/section/{id}',[SectionController::class,'getSection']);
-Route::Put('/section/{id}',[SectionController::class,'editSection']);                 
-Route::Delete('/section/{id}',[SectionController::class,'deleteSection']);   
+ 
 
 
-Route::Post('/admins',[AdminController::class,'addAdmin']);
-Route::Get('/admins',[AdminController::class,'getAllAdmin']);
-Route::Get('/admins/{id}',[AdminController::class,'getAdmin']);
-Route::Patch('/admins/{id}',[AdminController::class,'editAdmin']);
-Route::delete('/admins/{id}',[AdminController::class,'deleteAdmin']);
+Route::Post('/attendance',[AttendanceController::class,'addAttendance']);
+Route::Patch('/attendance/{id}',[AttendanceController::class,'updateAttendance']);
+Route::Delete('/attendance/{id}',[AttendanceController::class,'deleteAttendance']);
 
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);
+    Route::get('/users', [AuthController::class, 'getAllUsers']);
+    Route::get('/users/{id}', [AuthController::class, 'getById']);
+    Route::delete('/users/{id}', [AuthController::class, 'deleteUser']);
+    Route::put('/users/{id}', [AuthController::class, 'editUser']);
+
+    // course
+    Route::Post('/course',[CourseController::class,'addCourse']);
+    Route::Put('/course/{id}',[CourseController::class,'editCourse']);
+    Route::Delete('/course/{id}',[CourseController::class,'deleteCourse']);
+   // student
+   Route::Get('/student',[StudentController::class,'getAllStudent']);
+   Route::Get('/student/{id}',[StudentController::class,'getStudent']);
+
+  // section
+  Route::Post('/section',[SectionController::class,'addSection']);
+  Route::Put('/section/{id}',[SectionController::class,'editSection']);                 
+  Route::Delete('/section/{id}',[SectionController::class,'deleteSection']);  
+
+
+   // attendance
+   Route::Get('/attendance',[AttendanceController::class,'getAllAttendance']);
+   Route::Get('/attendance/{id}',[AttendanceController::class,'getAttendance']);
+});
