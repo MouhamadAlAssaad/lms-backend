@@ -30,11 +30,46 @@ class AttendanceController extends Controller
         $Attendance      ->Student()->associate($student_id);
 
          $Attendance     ->save();
+         return response()->json([
+            'message' => "attendance saved successfully"
+         ]);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], 500);
         }
+    }
+
+      //  Get an attendance by student id
+    public function getAttendanceByStudentId(Request $req, $student_id)
+    {
+        $attendance = attendance::where("student_id", $student_id)->get();
+        // Check if the attendance not exists
+        if (!$attendance) {
+            return response()->json([
+                'message' => 'attendance not found!',
+            ]);
+        }
+
+        return response()->json([
+            "message" => $attendance
+        ]);
+    }
+
+    // Get an attendance by section id
+    public function getAttendanceBySectionId(Request $req, $section_id)
+    {
+        $attendance = attendance::where("section_id", $section_id)->get();
+
+        if (!$attendance) {
+            return response()->json([
+                'message' => 'attendance not found!',
+            ]);
+        }
+
+        return response()->json([
+            "message" => $attendance
+        ]);
     }
 
           public function getAttendance(Request $request , $id){

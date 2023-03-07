@@ -12,16 +12,11 @@ class Student extends Model
     protected $fillable = [
         'name',
         'email',
-        'password',
         'phone',
         'picture',
         'course_id',
     ];
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
 
     public function course()
     {

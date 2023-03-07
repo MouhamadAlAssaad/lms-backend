@@ -23,53 +23,59 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::Get('/course',[CourseController::class,'getAllCourses']);
-Route::Get('/course/{id}',[CourseController::class,'getCourse']);
 
 
-Route::Post('/student',[StudentController::class,'addStudent']);
-Route::Patch('/student/{id}',[StudentController::class,'updateStudent']);
-Route::Delete('/student/{id}',[StudentController::class,'deleteStudent']);
+
+    Route::post('/login', [AuthController::class, 'login'])->name('logn');
+   
 
 
-Route::Get('/section',[SectionController::class,'getAllSection']);
-Route::Get('/section/{id}',[SectionController::class,'getSection']);
- 
 
 
-Route::Post('/attendance',[AttendanceController::class,'addAttendance']);
-Route::Patch('/attendance/{id}',[AttendanceController::class,'updateAttendance']);
-Route::Delete('/attendance/{id}',[AttendanceController::class,'deleteAttendance']);
 
 
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 ], function ($router) {
-    Route::post('/login', [AuthController::class, 'login'])->name('login');
-    Route::post('/register', [AuthController::class, 'register']);
+    
+      //super user
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/register', [AuthController::class, 'register']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
     Route::get('/users', [AuthController::class, 'getAllUsers']);
     Route::get('/users/{id}', [AuthController::class, 'getById']);
     Route::delete('/users/{id}', [AuthController::class, 'deleteUser']);
     Route::put('/users/{id}', [AuthController::class, 'editUser']);
 
-    // course
+         // course
+    Route::Get('/course',[CourseController::class,'getAllCourses']);
+    Route::Get('/course/{id}',[CourseController::class,'getCourse']);
     Route::Post('/course',[CourseController::class,'addCourse']);
     Route::Put('/course/{id}',[CourseController::class,'editCourse']);
     Route::Delete('/course/{id}',[CourseController::class,'deleteCourse']);
-   // student
+
+       // student
+   Route::Post('/student',[StudentController::class,'addStudent']);
+   Route::Patch('/student/{id}',[StudentController::class,'updateStudent']);
+   Route::Delete('/student/{id}',[StudentController::class,'deleteStudent']);
    Route::Get('/student',[StudentController::class,'getAllStudent']);
    Route::Get('/student/{id}',[StudentController::class,'getStudent']);
 
-  // section
-  Route::Post('/section',[SectionController::class,'addSection']);
-  Route::Put('/section/{id}',[SectionController::class,'editSection']);                 
-  Route::Delete('/section/{id}',[SectionController::class,'deleteSection']);  
+     // section
+   Route::Get('/section',[SectionController::class,'getAllSection']);
+   Route::Get('/section/{id}',[SectionController::class,'getSection']);
+   Route::Post('/section',[SectionController::class,'addSection']);
+   Route::Put('/section/{id}',[SectionController::class,'editSection']);                 
+   Route::Delete('/section/{id}',[SectionController::class,'deleteSection']); 
 
-
-   // attendance
+     // attendance
+   Route::Post('/attendance',[AttendanceController::class,'addAttendance']);
+   Route::Patch('/attendance/{id}',[AttendanceController::class,'updateAttendance']);
+   Route::Delete('/attendance/{id}',[AttendanceController::class,'deleteAttendance']);
    Route::Get('/attendance',[AttendanceController::class,'getAllAttendance']);
    Route::Get('/attendance/{id}',[AttendanceController::class,'getAttendance']);
+   Route::Get('/attendance/section/{id}',[AttendanceController::class,'getAttendanceBySectionId']);
+   Route::Get('/attendance/student/{id}',[AttendanceController::class,'getAttendanceByStudentId']);
+
 });

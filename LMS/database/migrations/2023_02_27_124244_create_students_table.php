@@ -17,7 +17,6 @@ return new class extends Migration
         $table->id();
         $table->string('name');
         $table->string('email')->unique();
-        $table->string('password');
         $table->string('phone');
         $table->string('picture')->nullable();
         $table->unsignedBigInteger('course_id');
@@ -25,10 +24,6 @@ return new class extends Migration
         $table->timestamps();
     });
 
-    // Hash the password before saving it to the database
-    DB::table('students')->update([
-        'password' => Hash::make('password'),
-    ]);
 }
 
     /**

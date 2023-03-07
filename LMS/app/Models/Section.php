@@ -11,7 +11,7 @@ class Section extends Model
     protected $fillable = [
         'name',
         'content',
-        'capasity'
+        'capacity'
     ];
 
     public function Course(){
