@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
+    Route::post('/register', [AuthController::class, 'register']);
 
 
 
@@ -40,42 +41,44 @@ Route::group([
 ], function ($router) {
     
       //super user
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::get('/user-profile', [AuthController::class, 'userProfile']);
-    Route::get('/users', [AuthController::class, 'getAllUsers']);
-    Route::get('/users/{id}', [AuthController::class, 'getById']);
-    Route::delete('/users/{id}', [AuthController::class, 'deleteUser']);
-    Route::put('/users/{id}', [AuthController::class, 'editUser']);
+    Route::post('/logout', [AuthController::class, 'logout'])->middleware('api');
+    Route::get('/user-profile', [AuthController::class, 'userProfile'])->middleware('api');
+    Route::get('/users', [AuthController::class, 'getAllUsers'])->middleware('api');
+    Route::get('/users/{id}', [AuthController::class, 'getById'])->middleware('api');
+    Route::delete('/users/{id}', [AuthController::class, 'deleteUser'])->middleware('api');
+    Route::put('/users/{id}', [AuthController::class, 'editUser'])->middleware('api');
 
-         // course
-    Route::Get('/course',[CourseController::class,'getAllCourses']);
-    Route::Get('/course/{id}',[CourseController::class,'getCourse']);
-    Route::Post('/course',[CourseController::class,'addCourse']);
-    Route::Put('/course/{id}',[CourseController::class,'editCourse']);
-    Route::Delete('/course/{id}',[CourseController::class,'deleteCourse']);
 
        // student
-   Route::Post('/student',[StudentController::class,'addStudent']);
-   Route::Patch('/student/{id}',[StudentController::class,'updateStudent']);
-   Route::Delete('/student/{id}',[StudentController::class,'deleteStudent']);
-   Route::Get('/student',[StudentController::class,'getAllStudent']);
-   Route::Get('/student/{id}',[StudentController::class,'getStudent']);
+   Route::Post('/student',[StudentController::class,'addStudent'])->middleware('api');
+   Route::Patch('/student/{id}',[StudentController::class,'updateStudent'])->middleware('api');
+   Route::Delete('/student/{id}',[StudentController::class,'deleteStudent'])->middleware('api');
+   Route::Get('/student',[StudentController::class,'getAllStudent'])->middleware('api');
+   Route::Get('/student/{id}',[StudentController::class,'getStudent'])->middleware('api');
 
      // section
-   Route::Get('/section',[SectionController::class,'getAllSection']);
-   Route::Get('/section/{id}',[SectionController::class,'getSection']);
-   Route::Post('/section',[SectionController::class,'addSection']);
-   Route::Put('/section/{id}',[SectionController::class,'editSection']);                 
-   Route::Delete('/section/{id}',[SectionController::class,'deleteSection']); 
+   Route::Get('/section',[SectionController::class,'getAllSection'])->middleware('api');
+   Route::Get('/section/{id}',[SectionController::class,'getSection'])->middleware('api');
+   Route::Post('/section',[SectionController::class,'addSection'])->middleware('api');
+   Route::Put('/section/{id}',[SectionController::class,'editSection'])->middleware('api');                 
+   Route::Delete('/section/{id}',[SectionController::class,'deleteSection'])->middleware('api'); 
 
      // attendance
-   Route::Post('/attendance',[AttendanceController::class,'addAttendance']);
-   Route::Patch('/attendance/{id}',[AttendanceController::class,'updateAttendance']);
-   Route::Delete('/attendance/{id}',[AttendanceController::class,'deleteAttendance']);
-   Route::Get('/attendance',[AttendanceController::class,'getAllAttendance']);
-   Route::Get('/attendance/{id}',[AttendanceController::class,'getAttendance']);
-   Route::Get('/attendance/section/{id}',[AttendanceController::class,'getAttendanceBySectionId']);
-   Route::Get('/attendance/student/{id}',[AttendanceController::class,'getAttendanceByStudentId']);
+   Route::Post('/attendance',[AttendanceController::class,'addAttendance'])->middleware('api');
+   Route::Patch('/attendance/{id}',[AttendanceController::class,'updateAttendance'])->middleware('api');
+   Route::Delete('/attendance/{id}',[AttendanceController::class,'deleteAttendance'])->middleware('api');
+   Route::Get('/attendance',[AttendanceController::class,'getAllAttendance'])->middleware('api');
+   Route::Get('/attendance/{id}',[AttendanceController::class,'getAttendance'])->middleware('api');
+   Route::Get('/attendance/section/{id}',[AttendanceController::class,'getAttendanceBySectionId'])->middleware('api');
+   Route::Get('/attendance/student/{id}',[AttendanceController::class,'getAttendanceByStudentId'])->middleware('api');
 
-});
+
+
+
+         // course
+         Route::Get('/course',[CourseController::class,'getAllCourses'])->middleware('api');
+         Route::Get('/course/{id}',[CourseController::class,'getCourse'])->middleware('api');
+         Route::Post('/course',[CourseController::class,'addCourse'])->middleware('api');
+         Route::Put('/course/{id}',[CourseController::class,'editCourse'])->middleware('api');
+         Route::Delete('/course/{id}',[CourseController::class,'deleteCourse'])->middleware('api');
+        });

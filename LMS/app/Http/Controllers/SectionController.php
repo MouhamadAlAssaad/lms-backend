@@ -8,6 +8,10 @@ use App\Models\Course;
 
 class SectionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
 
 
 //getAllSection
