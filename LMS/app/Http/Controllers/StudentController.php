@@ -120,7 +120,7 @@ class StudentController extends Controller
             $student->update($input);
 
             if ($request->hasFile('picture')) {
-                Storage::delete('/public' . $student->picture);
+                Storage::delete('public/' . $student->picture);
                 $picture_path = $request->file('picture')->store('images', 'public');
                 $student->update(['picture' => $picture_path]);
             }
@@ -136,26 +136,30 @@ class StudentController extends Controller
         }
     }
 
-    public function deleteStudent(Request $request, $id)
-    {
-        try {
-            $student = Student::find($id);
+public function deleteStudent(Request $request, $id)
+{
+    try {
+        $student = Student::find($id);
 
-            if (!$student) {
-                throw new \Exception("Student not found.");
-            }
-
-            $student->delete();
-
-            return response()->json([
-                'message' => 'success',
-            ]);
-        }  catch (\Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 500);
+        if (!$student) {
+            throw new \Exception("Student not found.");
         }
+
+        // Delete the picture file from the storage
+        Storage::delete('public/' . $student->picture);
+
+        // Delete the student record from the database
+        $student->delete();
+
+        return response()->json([
+            'message' => 'success',
+        ]);
+    }  catch (\Exception $e) {
+        return response()->json([
+            'message' => $e->getMessage(),
+        ], 500);
     }
+}
     public function updateStudentPicture(Request $request, $id)
 {
     try {
