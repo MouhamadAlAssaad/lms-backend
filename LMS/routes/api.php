@@ -47,7 +47,8 @@ Route::group([
     Route::get('/users/{id}', [AuthController::class, 'getById'])->middleware('api');
     Route::delete('/users/{id}', [AuthController::class, 'deleteUser'])->middleware('api');
     Route::put('/users/{id}', [AuthController::class, 'editUser'])->middleware('api');
-
+    
+    
 
        // student
    Route::Post('/student',[StudentController::class,'addStudent'])->middleware('api');
