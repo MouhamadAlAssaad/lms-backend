@@ -55,7 +55,9 @@ Route::group([
    Route::Delete('/student/{id}',[StudentController::class,'deleteStudent'])->middleware('api');
    Route::Get('/student',[StudentController::class,'getAllStudent'])->middleware('api');
    Route::Get('/student/{id}',[StudentController::class,'getStudent'])->middleware('api');
-  
+   Route::get('/students/section/{section_id}', [StudentController::class, 'getStudentBySectionId']);
+
+
      // section
    Route::Get('/section',[SectionController::class,'getAllSection'])->middleware('api');
    Route::Get('/section/{id}',[SectionController::class,'getSection'])->middleware('api');
