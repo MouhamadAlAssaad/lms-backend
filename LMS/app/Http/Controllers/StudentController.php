@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Course;
+use App\Models\Section;
 use Illuminate\Support\Facades\Storage;
+
 
 class StudentController extends Controller
 {
@@ -23,6 +25,11 @@ class StudentController extends Controller
             $picture_path   = $request->file('picture')->store('images','public');
             $course_id      = $request->input('course_id');
             $course         = Course::find($course_id);
+            $section_id      = $request->input('section_id');
+            $section         = Section::find($section_id);
+
+
+
 
             if (!$course) {
                 throw new \Exception("Course not found.");
@@ -33,8 +40,12 @@ class StudentController extends Controller
             $Student->picture      = $picture_path;
             $Student->phone        = $phone;
             $Student->course_id    = $course_id;
+            $Student->section_id    = $section_id;
+
 
             $Student->Course()->associate($course_id);
+            $Student->Section()->associate($section_id);
+
 
             $Student->save();
 
@@ -74,6 +85,7 @@ class StudentController extends Controller
             ], 500);
         }
     }
+
 
     public function getAllStudent(Request $request)
     {
@@ -186,6 +198,23 @@ public function deleteStudent(Request $request, $id)
             'message' => $e->getMessage(),
         ], 500);
     }
-}
+
+     public function getStudentBySectionId(Request $req, $section_id)
+     {
+         $student = Student::where("section_id", $section_id)->get();
+ 
+         if (!$student) {
+             return response()->json([
+                 'message' => 'Student not found!',
+             ]);
+         }
+ 
+         return response()->json([
+             "message" => $student
+         ]);
+     }
+
+
+
 
 }
