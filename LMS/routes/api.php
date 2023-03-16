@@ -55,13 +55,15 @@ Route::group([
    Route::Delete('/student/{id}',[StudentController::class,'deleteStudent'])->middleware('api');
    Route::Get('/student',[StudentController::class,'getAllStudent'])->middleware('api');
    Route::Get('/student/{id}',[StudentController::class,'getStudent'])->middleware('api');
-
+  
      // section
    Route::Get('/section',[SectionController::class,'getAllSection'])->middleware('api');
    Route::Get('/section/{id}',[SectionController::class,'getSection'])->middleware('api');
    Route::Post('/section',[SectionController::class,'addSection'])->middleware('api');
    Route::Put('/section/{id}',[SectionController::class,'editSection'])->middleware('api');                 
    Route::Delete('/section/{id}',[SectionController::class,'deleteSection'])->middleware('api'); 
+   Route::Get('/section/course/{course_id}', [sectioncontroller::class, 'getSectionByCourseId']);
+
 
      // attendance
    Route::Post('/attendance',[AttendanceController::class,'addAttendance'])->middleware('api');

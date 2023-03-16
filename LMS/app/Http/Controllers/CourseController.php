@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\Validator;
 
 class CourseController extends Controller
 {
-    //getAllCourses
-
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     public function getAllCourses()
     {
         try{

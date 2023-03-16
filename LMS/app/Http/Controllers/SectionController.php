@@ -24,6 +24,18 @@ class SectionController extends Controller
         ]);
     }
 
+    public function getSectionByCourseId(Request $request, $course_id){
+        $sections = Section::where('course_id', $course_id)->get();
+        if (!$sections) {
+            return response()->json([
+                'message' => 'Section not found!',
+            ]);
+        }
+        return response()->json([
+            'message' => $sections,
+        ]);
+    }
+
 // get by id
 
 public function getSection(Request $request, $id)
