@@ -47,7 +47,8 @@ Route::group([
     Route::get('/users/{id}', [AuthController::class, 'getById'])->middleware('api');
     Route::delete('/users/{id}', [AuthController::class, 'deleteUser'])->middleware('api');
     Route::put('/users/{id}', [AuthController::class, 'editUser'])->middleware('api');
-
+    
+    
 
        // student
    Route::Post('/student',[StudentController::class,'addStudent'])->middleware('api');
@@ -56,6 +57,8 @@ Route::group([
    Route::Get('/student',[StudentController::class,'getAllStudent'])->middleware('api');
    Route::Get('/student/{id}',[StudentController::class,'getStudent'])->middleware('api');
    Route::get('/students/section/{section_id}', [StudentController::class, 'getStudentBySectionId']);
+   Route::put('/student/{id}/picture', [StudentController::class, 'updateStudentPicture'])->middleware('api');
+
 
 
      // section
@@ -75,9 +78,6 @@ Route::group([
    Route::Get('/attendance/{id}',[AttendanceController::class,'getAttendance'])->middleware('api');
    Route::Get('/attendance/section/{id}',[AttendanceController::class,'getAttendanceBySectionId'])->middleware('api');
    Route::Get('/attendance/student/{id}',[AttendanceController::class,'getAttendanceByStudentId'])->middleware('api');
-
-
-
 
          // course
          Route::Get('/course',[CourseController::class,'getAllCourses'])->middleware('api');

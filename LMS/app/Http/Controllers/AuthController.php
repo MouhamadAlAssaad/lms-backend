@@ -50,6 +50,7 @@ class AuthController extends Controller
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|min:6',
+            'is_super'=>'required|boolean'
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);

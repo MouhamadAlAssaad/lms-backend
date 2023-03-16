@@ -13,6 +13,7 @@ class CourseController extends Controller
     {
         $this->middleware('auth:api');
     }
+
     public function getAllCourses()
     {
         try{
