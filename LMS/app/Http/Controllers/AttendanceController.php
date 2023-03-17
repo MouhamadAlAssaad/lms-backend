@@ -19,7 +19,7 @@ class AttendanceController extends Controller
         $date = $request ->input('date');
         $Attendance          ->date = $date;
 
-    
+
         $case = $request ->input('case');
         $Attendance          ->case = $case;
 
@@ -59,79 +59,18 @@ class AttendanceController extends Controller
             "message" => $attendance
         ]);
     }
+    public function deleteAttendance(Request $request , $id){
+        try{
+    $attendance    = Attendance::find($id);
+    $attendance->delete();
 
-    // Get an attendance by section id
-    public function getAttendanceBySectionId(Request $req, $section_id)
-    {
-        $attendance = attendance::where("section_id", $section_id)->get();
-
-        if (!$attendance) {
-            return response()->json([
-                'message' => 'attendance not found!',
-            ]);
-        }
-
+    return response()->json([
+        'message' => 'success',
+    ]);
+} catch (\Exception $e) {
         return response()->json([
-            "message" => $attendance
-        ]);
+            'message' => $e->getMessage(),
+        ], 500);
     }
-
-          public function getAttendance(Request $request , $id){
-            try{
-        $attendance    = Attendance::find($id);
-
-        return response()->json([
-            'message' => $attendance,
-        ]);
-    } catch (\Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 500);
-        }
-    }
-
-             public function getAllAttendance(Request $request){
-            try{
-        $attendance    = Attendance::get();
-
-        return response()->json([
-            'message' => $attendance,
-        ]);
-    } catch (\Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 500);
-        }
-    }
-
-        public function updateAttendance(Request $request , $id){
-                try{
-        $attendance    = Attendance::find($id);   
-        $input         = $request->except('_method');
-        $attendance    ->update($input);
-        
-        return response()->json([
-            'message' => 'success',
-            'message' => $attendance,
-        ]);
-    } catch (\Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 500);
-        }
-    }
-        public function deleteAttendance(Request $request , $id){
-            try{
-        $attendance    = Attendance::find($id);   
-        $attendance->delete();
-        
-        return response()->json([
-            'message' => 'success',
-        ]);
-    } catch (\Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 500);
-        }
-    }
+}
 }
