@@ -198,8 +198,8 @@ public function deleteStudent(Request $request, $id)
             'message' => $e->getMessage(),
         ], 500);
     }
-
-     public function getStudentBySectionId(Request $req, $section_id)
+}
+     Public  function getStudentBySectionId(Request $req, $section_id)
      {
          $student = Student::where("section_id", $section_id)->get();
  
