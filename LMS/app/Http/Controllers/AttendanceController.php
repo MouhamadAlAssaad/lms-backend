@@ -44,6 +44,23 @@ class AttendanceController extends Controller
         }
     }
 
+
+    public function getAllAttendance()
+    {
+        try{
+        $attendance = Attendance::all();
+    
+        return response()->json([
+            // 'message' => 'All attendance retrieved successfully!',
+            'message' => $attendance,
+        ]);
+    } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
       //  Get an attendance by student id
     public function getAttendanceByStudentId(Request $req, $student_id)
     {
